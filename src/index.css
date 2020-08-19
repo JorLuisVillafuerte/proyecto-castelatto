@@ -60,14 +60,26 @@ a {
     color: var(--gris2);
 }
 
+.cerrar-sesion {
+    color: var(--blanco);
+}
+
+hr {
+    border: 1px solid #1a202d;
+}
+
 
 /** BOTONES **/
+
+.btn-custom {
+    margin-bottom: 20px;
+}
 
 .btn {
     margin-top: 2rem;
     font-family: var(--headingFont);
     padding: 1.5rem;
-    font-size: 1.4;
+    font-size: 1.4rem;
     font-weight: 400;
     border-radius: .5rem;
     border: none;
@@ -333,7 +345,7 @@ aside {
 .form-usuario {
     background-color: var(--gris2);
     height: 100vh;
-    min-height: 700px;
+    min-height: 800px;
     display: flex;
     align-items: center;
     justify-content: center;
