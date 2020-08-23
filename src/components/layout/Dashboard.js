@@ -1,7 +1,6 @@
-import React, { useEffect, useContext } from 'react';  
+import React from 'react';  
 import Sidebar from './Sidebar';
 import Barra from './Barra';
-import CargarPedidos from '../pedidos/CargarPedidos';
 //import ListadoTareas from '../tareas/ListadoTareas';
 //import AuthContext from '../../context/autenticacion/authContext';
 
@@ -18,15 +17,9 @@ const Proyectos = () => {
         <div className="contenedor-app">
             <Sidebar
             />
-
             <div className="seccion-principal">
                 <Barra 
                 />
-                <main>
-                    <CargarPedidos/>
-                    <div className="contenedor-tareas">
-                    </div>
-                </main>
             </div>
         </div>
      );

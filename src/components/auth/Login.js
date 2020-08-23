@@ -89,9 +89,9 @@ const Login = (props) => {
                         />
                     </div>
                 </form>
-                {/*<Link to={'/nueva-cuenta'} className="enlace-cuenta">
+                {<Link to={'/registrarse'} className="enlace-cuenta">
                     Obtener cuenta
-                </Link>*/}
+                </Link>}
             </div>
         </div>
      );

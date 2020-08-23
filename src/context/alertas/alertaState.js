@@ -28,7 +28,7 @@ const AlertaState = (props) => {
 
 
     return ( 
-        <alertaContext.Provider value
+        <alertaContext.Provider 
             value={{
                 alerta: state.alerta,
                 mostrarAlerta

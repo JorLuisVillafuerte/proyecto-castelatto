@@ -1,3 +1,9 @@
+npm i @material-ui/core
+npm i jsonewebtoken
+npm install react-file-reader 
+npm install tailwindcss
+npm install react-dropzone
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

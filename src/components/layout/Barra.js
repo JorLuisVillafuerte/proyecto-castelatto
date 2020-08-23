@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from 'react'
-//import AuthContext from '../../context/auth/authContext';
+import React, { useContext } from 'react'
+import AuthContext from '../../context/auth/authContext';
 
 const Barra = () => {
 
-    //const authContext = useContext(AuthContext); 
-    //const {usuario, usuarioAutenticado, cerrarSesion} = authContext;
+    const authContext = useContext(AuthContext); 
+    const {usuario, usuarioAutenticado, cerrarSesion} = authContext;
     
     /* useEffect(() => {
         usuarioAutenticado();
@@ -15,9 +15,10 @@ const Barra = () => {
             {
             //usuario ? <p className="nombre-usuario">Hola <span>{usuario.nombre}</span></p> : null
             }
+            <p className="nombre-usuario">Hola <span> Jorge!</span></p>
             <nav className="nav-principal">
                 <button
-                    //onClick={()=> cerrarSesion()}
+                    onClick={()=> cerrarSesion()}
                     className="btn btn-blank cerrar-sesion"
                 >Cerrar Sesion</button>
             </nav>

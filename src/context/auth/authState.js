@@ -1,14 +1,15 @@
 import React, { useReducer } from 'react';
-import { REGISTRO_ERROR, REGISTRO_EXITOSO, LOGIN_ERROR, OBTENER_USUARIO, LOGIN_EXITOSO, CERRAR_SESION } from '../../types';
+import { REGISTRO_ERROR, REGISTRO_EXITOSO, LOGIN_ERROR, CERRAR_SESION,LOGIN_EXITOSO } from '../../types';
 import authContext from './authContext';
 import authReducer from './authReducer';
+import jwt from 'jsonwebtoken';
 /* import clienteAxios from '../../config/axios';
 import authToken from '../../config/authToken';
  */
 const AuthState = (props) => {
     
     const initialState = {
-        //token: localStorage.getItem('token'),
+        token: localStorage.getItem('token'),
         autenticado: null,
         usuario: null,
         msg: null,
@@ -36,28 +37,39 @@ const AuthState = (props) => {
                     categoria: 'alerta-error'
                 }
                 dispatch({
-                    type: REGISTRO_ERROR,
+                    type: LOGIN_ERROR,
                     payload: alerta
                 });
                 return;
             }
-            if(usuario[0].password != password){
+            if(usuario[0].password !== password){
                 console.log('Contraseña incorrecta');
                 const alerta = {
                     msg: 'DNI o contraseña incorrecto',
                     categoria: 'alerta-error'
                 }
                 dispatch({
-                    type: REGISTRO_ERROR,
+                    type: LOGIN_ERROR,
                     payload: alerta
                 });
                 return;
             }
-            //INICIO SESION EXITOSO
-            dispatch({
-                type: REGISTRO_EXITOSO
-                //payload: token
-            })
+            //SI TODO ES CORRECTO => CREAR Y FIRMAR EL JWT        
+            const payload = { 
+                usuario: { id: usuario[0].id } 
+            };        
+            //FIRMAR EL TOKEN        
+            jwt.sign(payload, 'PALABRA_SECRETA', 
+                { expiresIn: 3600, }, 
+                (error, token) => {
+                    if (error) throw error;
+                    //MENSAJE DE CONFIRMACION
+                    console.log(token); 
+                    dispatch({ 
+                        type: LOGIN_EXITOSO, 
+                        payload: token 
+                    });
+            });
             //usuarioAutenticado();
         } catch (error) {
             console.log(error.response);
