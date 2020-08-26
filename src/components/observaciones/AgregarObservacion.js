@@ -19,8 +19,8 @@ const AgregarObservacion = () => {
                 <form
                     //onSubmit={onSubmit}
                 >
-                    <div className="campo-form">
-                        <label htmlFor="numeropedido">Numero de pedido</label>
+                    <div className="campo-form" >
+                        <label id="label-form-obs" htmlFor="numeropedido">Numero de pedido</label>
                         <select 
                             name="pedido"
                             //value={cargo}
@@ -34,7 +34,7 @@ const AgregarObservacion = () => {
                         </select>
                     </div>
                     <div className="campo-form">
-                        <label htmlFor="codigoproducto">Codigo de producto</label>
+                        <label id="label-form-obs" htmlFor="codigoproducto">Codigo de producto</label>
                         <select 
                             name="producto"
                             //value={cargo}
@@ -48,7 +48,7 @@ const AgregarObservacion = () => {
                         </select>
                     </div>
                     <div className="campo-form">
-                        <label htmlFor="codigoproducto">Motivo</label>
+                        <label id="label-form-obs" htmlFor="codigoproducto">Motivo</label>
                         <select 
                             name="producto"
                             //value={cargo}
@@ -62,7 +62,7 @@ const AgregarObservacion = () => {
                         </select>
                     </div>
                     <div className="campo-form">
-                        <label htmlFor="cantidad">Cantidad de piezas del producto</label>
+                        <label id="label-form-obs" htmlFor="cantidad">Cantidad de piezas del producto</label>
                         <input 
                             type="text" 
                             name="cantidad" 
@@ -73,7 +73,7 @@ const AgregarObservacion = () => {
                             />
                     </div>
                     <div className="campo-form">
-                        <label htmlFor="cantidad-falla">Cantidad de piezas a registrar</label>
+                        <label id="label-form-obs" htmlFor="cantidad-falla">Cantidad de piezas a registrar</label>
                         <input 
                             type="text" 
                             name="cantidad" 

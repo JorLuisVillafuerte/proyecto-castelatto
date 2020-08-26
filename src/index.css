@@ -67,20 +67,25 @@ a {
 hr {
     border: 1px solid #1a202d;
 }
-button:disabled{
+
+button:disabled {
     text-decoration: line-through;
 }
+
+
 /* PEDIDOS */
 
-#btn-pedidos{
+#btn-pedidos {
     width: 30%;
     margin-right: 20px;
     margin-left: 20px;
     padding: 1.5rem 0px;
 }
-.gestion{
+
+.gestion {
     display: flex;
 }
+
 
 /** BOTONES **/
 
@@ -99,7 +104,6 @@ button:disabled{
     transition: background-color .3s ease;
 }
 
-
 .btn:hover {
     cursor: pointer;
 }
@@ -116,6 +120,7 @@ button:disabled{
 .btn-secundario {
     background-color: var(--gris1);
 }
+
 .btn-tercer {
     background-color: #94949463;
 }
@@ -218,7 +223,7 @@ aside {
 .formulario {
     background-color: var(--gris3);
     padding: 4rem;
-    text-align:center;
+    text-align: center;
 }
 
 .formulario form {
@@ -264,12 +269,13 @@ aside {
     align-items: center;
     margin-bottom: 1rem;
     border-radius: .5rem;
-   
 }
-#cargar-pedidos{
+
+#cargar-pedidos {
     max-width: 600px;
 }
-.buscador{
+
+.buscador {
     display: flex;
     justify-content: center;
     background-color: var(--gris3);
@@ -277,8 +283,8 @@ aside {
     align-items: center;
     margin-bottom: 3rem;
     border-radius: .5rem;
-    
 }
+
 .input-text-buscador {
     padding: 1rem;
     border: none;
@@ -288,7 +294,8 @@ aside {
     margin: 1rem;
     text-align: center;
 }
-.btn-buscador{
+
+.btn-buscador {
     width: 200px;
     margin: 1rem;
 }
@@ -357,11 +364,11 @@ aside {
     background-color: rgba(255, 178, 178, .4);
     color: var(--gris3);
 }
+
 .ver-detalle {
     background-color: rgba(92, 87, 87, 0.4);
     color: var(--gris3);
 }
-
 
 .error {
     max-width: 600px;
@@ -400,6 +407,7 @@ aside {
     align-items: center;
     justify-content: center;
 }
+
 .form-observacion {
     width: 100%;
     min-height: 400px;
@@ -415,6 +423,7 @@ aside {
     background-color: var(--blanco);
     border-radius: 1rem;
 }
+
 .contenedor-observacion {
     padding: 3rem 3rem;
     max-width: 650px;
@@ -429,6 +438,10 @@ aside {
     align-items: center;
 }
 
+#label-form-obs {
+    min-width: 250px;
+}
+
 .campo-form:last-of-type {
     margin: 0;
 }
@@ -436,7 +449,7 @@ aside {
 .campo-form label {
     flex: 0 0 100px;
     font-family: var(--textFont);
-    min-width: 250px;
+    min-width: 100px;
 }
 
 .campo-form input[type="password"],
@@ -446,7 +459,8 @@ aside {
     padding: 1rem;
     flex: 1;
 }
-.campo-form select{
+
+.campo-form select {
     border: 1px solid #e1e1e1;
     padding: 1rem;
     flex: 1;
