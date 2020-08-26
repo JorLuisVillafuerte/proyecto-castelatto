@@ -11,6 +11,7 @@ import GestionPedidos from './components/pedidos/GestionPedidos';
 import GestionObservaciones from './components/observaciones/GestionObservaciones';
 import GestionReportes from './components/reportes/GestionReportes';
 import Registrarse from './components/auth/Registrarse';
+import PrivateRoute from './config/PrivateRoute';
 //import Archivos from './components/archivos/Archivos';
 //import ArchivosState from './context/archivos/archivosState';
 
@@ -25,10 +26,10 @@ function App() {
               <Switch>
                   <Route exact path="/" component={Login} />
                   <Route exact path="/registrarse" component={Registrarse} />
-                  <Route exact path="/dashboard" component={Dashboard} />
-                  <Route exact path="/gestionpedidos" component={GestionPedidos} />
-                  <Route exact path="/gestionobservaciones" component={GestionObservaciones} />
-                  <Route exact path="/gestionreportes" component={GestionReportes} />
+                  <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                  <PrivateRoute exact path="/gestionpedidos" component={GestionPedidos} />
+                  <PrivateRoute exact path="/gestionobservaciones" component={GestionObservaciones} />
+                  <PrivateRoute exact path="/gestionreportes" component={GestionReportes} />
               </Switch>
             </Router>
           </GestionProvider>

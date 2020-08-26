@@ -22,7 +22,8 @@ const Registrarse = (props) => {
     
     //STATE INICIO SESION    
     const [usuario, setUsuario] = useState({ 
-        nombre: '', 
+        nombre: '',
+        apellido: '', 
         email: '', 
         dni: '',
         galpon: '',
@@ -30,7 +31,7 @@ const Registrarse = (props) => {
         password: '', 
         confirmarPassword: '' 
     });
-    const { nombre, email, dni, galpon, cargo ,password, confirmarPassword } = usuario;
+    const { nombre, apellido, email, dni, galpon, cargo ,password, confirmarPassword } = usuario;
 
     const onChange = (e) => { 
         setUsuario({ 
@@ -41,7 +42,7 @@ const Registrarse = (props) => {
     const onSubmit = (e) => {
         e.preventDefault();
         //VALIDAR       
-        if (nombre.trim() === '' || email.trim() === '' || password.trim() === '' || confirmarPassword.trim() === '' || dni.trim() === ''|| galpon.trim() === '' || cargo.trim() === '') {
+        if (nombre.trim() === '' || apellido.trim() === ''|| email.trim() === '' || password.trim() === '' || confirmarPassword.trim() === '' || dni.trim() === ''|| galpon.trim() === '' || cargo.trim() === '') {
             mostrarAlerta('Todos los campos son obligatorios', 'alerta-error');
             return;
         }
@@ -59,8 +60,9 @@ const Registrarse = (props) => {
             mostrarAlerta('Los passwords no son iguales', 'alerta-error');
             return;
         }
-        //ACTION        
-        //registrarUsuario({ nombre, email, password });
+        //ACTION 
+        //console.log({ nombre, apellido, email, dni, cargo, password,galpon });       
+        registrarUsuario({ nombre, apellido, email, dni, cargo, password,galpon });
     }
 
     return ( 
@@ -81,6 +83,17 @@ const Registrarse = (props) => {
                             id="nombre"
                             placeholder="Ingresa tu Nombre"
                             value={nombre}
+                            onChange={onChange}
+                            />
+                    </div>
+                    <div className="campo-form">
+                        <label htmlFor="apellido">Apellido</label>
+                        <input 
+                            type="text" 
+                            name="apellido" 
+                            id="apellido"
+                            placeholder="Ingresa tu Apellido"
+                            value={apellido}
                             onChange={onChange}
                             />
                     </div>
@@ -157,7 +170,7 @@ const Registrarse = (props) => {
                     <div className="campo-form">
                         <input 
                             type="submit" 
-                            value="Registrarme"
+                            value="registrarme"
                             className="btn btn-primario btn-block"
                         />
                     </div>
