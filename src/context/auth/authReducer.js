@@ -2,6 +2,7 @@ import { REGISTRO_EXITOSO, REGISTRO_ERROR, LOGIN_ERROR, OBTENER_USUARIO, LOGIN_E
 
 export default (state, action) => {
     switch (action.type) {
+        case LOGIN_EXITOSO:
         case REGISTRO_EXITOSO:
             localStorage.setItem('token', action.payload);
             return {
@@ -27,14 +28,6 @@ export default (state, action) => {
                 ...state,
                 autenticado: true,
                 usuario: action.payload,
-                cargando: false
-            }
-        case LOGIN_EXITOSO:
-            localStorage.setItem('token', action.payload);
-            return {
-                ...state,
-                autenticado: true,
-                msg: null,
                 cargando: false
             }
         default:

@@ -3,6 +3,7 @@ npm i jsonewebtoken
 npm install react-file-reader 
 npm install tailwindcss
 npm install react-dropzone
+npm i axios
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

@@ -49,6 +49,7 @@ const AuthState = (props) => {
             type: CERRAR_SESION    
         })
     }
+    //REGISTRAR USUARIO
     const registrarUsuario = async datos => {
         try {
             const respuesta = await clienteAxios.post('/usuarios/registrarUsuario', datos);

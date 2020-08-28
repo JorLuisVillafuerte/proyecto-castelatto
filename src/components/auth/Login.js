@@ -28,6 +28,7 @@ const Login = (props) => {
             [e.target.name]: e.target.value
         });
     }
+    //SE EJECUTA AL INICIAR SESION (BOTON)
     const onSubmit = (e) => {
         e.preventDefault();
         
@@ -40,6 +41,7 @@ const Login = (props) => {
         iniciarSesion(usuario); 
       
     }
+    
     useEffect(() => {
         console.log('ENTRA USE EFECT');
         if(autenticado){
@@ -50,7 +52,8 @@ const Login = (props) => {
         }
     }, [msg, autenticado, props.history]); 
 
-    return ( 
+    return (
+        // INICIO INTERFAZ LOGIN
         <div className="form-usuario">
             {alerta ? (<div className={`alerta ${alerta.categoria}`} >{alerta.msg}</div>) : null}
             <div className="contenedor-form sombra-dark">
@@ -90,11 +93,12 @@ const Login = (props) => {
                     </div>
                 </form>
                 {<Link to={'/registrarse'} className="enlace-cuenta">
-                    Obtener cuenta
+                    Obtener cuenta 
                 </Link>}
             </div>
         </div>
      );
+    // FIN INTERFAZ LOGIN
 }
  
 export default Login;
