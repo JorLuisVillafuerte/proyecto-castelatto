@@ -1,17 +1,22 @@
-import React, { useContext, Fragment } from 'react';
+import React, { useContext, Fragment, useEffect } from 'react';
 import PedidoContext from '../../context/pedidos/pedidoContext'
 import AlertaContext from '../../context/alertas/alertaContext'
 import Pedido from './Pedido';
-
+import TablaGestion from '../tablas/TablaGestion';
+import {columnasPedidos} from '../util/Columnas';
 const VerPedidos = () => {
 
     const pedidoContext = useContext(PedidoContext); 
-    const {pedidos,seleccionado, buscarPedido,resetBusqueda } = pedidoContext;
-
+    const {pedidos,seleccionado, buscarPedido,resetBusqueda, obtenerPedidos, editarPedido, eliminarPedido} = pedidoContext;
     const alertaContext = useContext(AlertaContext);
     const {alerta,mostrarAlerta} = alertaContext;
     
-    
+    useEffect(() => {
+        obtenerPedidos();
+        console.log(pedidos);
+    },[]);
+
+
     const ejecutarBuscar = (e) =>{
         e.preventDefault();
         let contenido = document.querySelector('#contenido').value;
@@ -25,8 +30,25 @@ const VerPedidos = () => {
         resetBusqueda();
     }
 
-    if(seleccionado !== 'ver') return null; 
+    const handleRowUpdate = (newData, oldData, resolve, reject) => {
+        editarPedido(newData);
+        setTimeout(() => {
+            resolve()
+        }, 3000);
+        
+    }
 
+    const handleRowDelete = async (oldData, resolve, reject) => {
+        eliminarPedido(oldData);
+        setTimeout(() => {
+            resolve()
+        }, 3000);
+    }
+
+    if(seleccionado !== 'ver') return null;
+    if(pedidos.length === 0){
+        return null;
+    }
     return ( 
         <Fragment>
         {alerta ? (<div className={`alerta ${alerta.categoria}`} >{alerta.msg}</div>) : null}
@@ -52,16 +74,14 @@ const VerPedidos = () => {
             >Resetear 
             </button>
         </form>
-
-            {(pedidos.length===0) ? 
-                <li>No se encontraron pedidos</li>
-                :
-                pedidos.map(p => (
-                <Pedido
-                    key={p.id}
-                    pedido={p}
+        <div id="custom-font">
+            <TablaGestion
+                columns={columnasPedidos}
+                data={pedidos}
+                handleRowUpdate={handleRowUpdate}
+                handleRowDelete={handleRowDelete}
                 />
-            ))}
+        </div>
 
     
         </Fragment>

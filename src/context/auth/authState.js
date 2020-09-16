@@ -4,9 +4,8 @@ import authContext from './authContext';
 import authReducer from './authReducer';
 import jwt from 'jsonwebtoken';
 import clienteAxios from '../../config/axios';
-/* import clienteAxios from '../../config/axios';
 import authToken from '../../config/authToken';
- */
+ 
 const AuthState = (props) => {
     
     const initialState = {
@@ -23,9 +22,9 @@ const AuthState = (props) => {
     const iniciarSesion = async datos => {
         try {
             
-            const respuesta = await clienteAxios.post('/usuarios/validarUsuario', datos);
-            console.log(respuesta);
-            console.log(respuesta.data.token);
+            const respuesta = await clienteAxios.post('usuarios/validarLogin', datos);
+            //console.log(respuesta);
+            console.log(respuesta.data);
             dispatch({
                     type: LOGIN_EXITOSO,
                     payload:respuesta.data.token
@@ -34,7 +33,7 @@ const AuthState = (props) => {
         } catch (error) {
             console.log(error.response);
             const alerta = {
-                msg: error.response.data.msg,
+                msg: 'Usuario o contraseña incorrecto.',
                 categoria: 'alerta-error'
             }
             dispatch({
@@ -76,14 +75,10 @@ const AuthState = (props) => {
     } 
     
     const usuarioAutenticado = async () => {
-        const token = {
-            token : localStorage.getItem('token')
-        };
         //FUNCION PARA ENVIAR EL TOKEN POR HEADERS
-        //authToken(token);
-       
+        authToken(localStorage.getItem('token'));
         try {
-            const respuesta = await clienteAxios.post('/usuarios/autenticarUsuario',token);
+            const respuesta = await clienteAxios.post('usuarios/autenticarUsuario');
             console.log(respuesta);
             dispatch({
                 type: OBTENER_USUARIO,

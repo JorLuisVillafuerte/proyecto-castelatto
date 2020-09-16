@@ -85,7 +85,9 @@ button:disabled {
 .gestion {
     display: flex;
 }
-
+#custom-font{
+    font-size: 1.6rem;
+}
 
 /** BOTONES **/
 

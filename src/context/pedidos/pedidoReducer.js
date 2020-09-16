@@ -1,7 +1,34 @@
-import {MOSTRAR_SELECCIONADO, BUSCAR_PEDIDO, RESET_BUSCAR, SET_ID_MODAL} from "../../types";
+import {MOSTRAR_SELECCIONADO, BUSCAR_PEDIDO, RESET_BUSCAR, SET_ID_MODAL, OBTENER_PEDIDOS, ERROR_PEDIDOS,EDITAR_PEDIDO,ELIMINAR_PEDIDO} from "../../types";
 
 export default (state, action) => {
     switch (action.type) {
+        case OBTENER_PEDIDOS: 
+            return {
+                ...state,
+                pedidos: action.payload,
+                msg: null
+            }
+        case EDITAR_PEDIDO: 
+            return {
+                ...state,
+                pedidos: state.pedidos.map(pedido => pedido.idpedido === action.payload.idpedido ? action.payload : pedido)
+            }
+        case ELIMINAR_PEDIDO:
+            return {
+                ...state,
+                pedidos: state.pedidos.filter(pedido => pedido.idpedido !== action.payload)
+            }
+        case OBTENER_PEDIDOS: 
+            return {
+                ...state,
+                pedidos: action.payload,
+                msg: null
+            }
+        case ERROR_PEDIDOS: 
+            return {
+                ...state,
+                msg: action.payload,
+            }
         case MOSTRAR_SELECCIONADO:
             return {
                 ...state,
