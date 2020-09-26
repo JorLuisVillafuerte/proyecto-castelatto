@@ -1,17 +1,16 @@
-import React, { useContext} from 'react';
-import MenuGestion from '../util/MenuGestion';
-import PedidosRoutes from '../../routes/PedidosRoutes';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import UsuariosRoutes from '../../routes/UsuariosRoutes';
+import MenuGestion from '../util/MenuGestion';
 
-const GestionPedidos = () => {
-    
+const GestionUsuarios = () => {
     return ( 
         <div className="seccion-principal">
-            <MenuGestion routesMenu={PedidosRoutes}/>
+            <MenuGestion routesMenu={UsuariosRoutes}/>
             <main>
                 <div className="contenedor-tareas">
                     <Switch>
-                    {PedidosRoutes.map((prop, key) => {
+                    {UsuariosRoutes.map((prop, key) => {
                         return (
                             <Route
                                 path={prop.path}
@@ -27,4 +26,4 @@ const GestionPedidos = () => {
      );
 }
  
-export default GestionPedidos;
+export default GestionUsuarios;

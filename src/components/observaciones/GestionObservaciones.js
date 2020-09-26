@@ -18,11 +18,7 @@ const GestionObservaciones = () => {
 
     return ( 
         <div className="contenedor-app">
-            <Sidebar
-            />
             <div className="seccion-principal">
-                <Barra 
-                />
                 <main>
                     <div className="formulario">
                         <form

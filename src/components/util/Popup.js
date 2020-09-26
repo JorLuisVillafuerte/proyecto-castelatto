@@ -38,10 +38,10 @@ const Popup = (props) => {
     }
     */
     const classes = useStyles();
-    const { title, children, openPopup, setOpenPopup,setIdPedidoModal } = props;
+    const { title, children, openPopup, setOpenPopup, handleClose} = props;
 
     return ( 
-        <Dialog open={openPopup} maxWidth="md" classes={{paper: classes.dialogWrapper}}>
+        <Dialog open={openPopup} maxWidth="md" onClose={handleClose} classes={{paper: classes.dialogWrapper}}>
             <DialogTitle>
                 <div style={{display: 'flex', alignItems: 'center'}}>
                     <Typography variant="h4" component="div" style={{flexGrow:1, marginRight: 40}} >
@@ -52,7 +52,6 @@ const Popup = (props) => {
                         text="X" 
                         onClick={()=>{
                             setOpenPopup(false);
-                            setIdPedidoModal(null);
                         }}>
                     </Boton>
                 </div>

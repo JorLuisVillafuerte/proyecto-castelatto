@@ -250,6 +250,14 @@ aside {
     width: 100%;
     margin-top: 25px;
 }
+.input-number {
+    padding: 1rem;
+    border: none;
+    border-radius: .5rem;
+    flex: 1;
+    width: 100%;
+    margin-top: 25px;
+}
 
 
 /** TAREAS LISTADO **/
@@ -457,6 +465,11 @@ aside {
 .campo-form input[type="password"],
 .campo-form input[type="email"],
 .campo-form input[type="text"] {
+    border: 1px solid #e1e1e1;
+    padding: 1rem;
+    flex: 1;
+}
+.campo-form input[type="number"] {
     border: 1px solid #e1e1e1;
     padding: 1rem;
     flex: 1;

@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
-import {Link} from 'react-router-dom';
 import Logo from '../../img/logo.jpg';
 import AlertaContext from '../../context/alertas/alertaContext';
-import AuthContext from '../../context/auth/authContext';
+import AuthContext from '../../context/autenticacion/authContext';
 
 const Login = (props) => {
 
@@ -18,8 +17,6 @@ const Login = (props) => {
         dni: '',
         password: ''
     });
-
-
     const {dni,password} = usuario;
 
     const onChange = (e) => {
@@ -41,12 +38,13 @@ const Login = (props) => {
         iniciarSesion(usuario); 
       
     }
-    
     useEffect(() => {
-        console.log('ENTRA USE EFECT');
+        //console.log('ENTRA USE EFECT');
+        //SI EL LOGIN ES CORRECTO ENTONCES AUTENTICADO = TRUE Y ENVIA AL USER AL DASHBOARD
         if(autenticado){
             props.history.push('/dashboard');
         } 
+        //SI EL LOGIN ES FALLIDO SE GUARDA UN MENSAJE EN "MSG" Y LUEGO MUESTRA ESE MENSAJE
         if(msg){
             mostrarAlerta(msg.msg,msg.categoria);
         }
@@ -57,7 +55,7 @@ const Login = (props) => {
         <div className="form-usuario">
             {alerta ? (<div className={`alerta ${alerta.categoria}`} >{alerta.msg}</div>) : null}
             <div className="contenedor-form sombra-dark">
-            <img src={Logo} alt="" width="100%"/>
+                <img src={Logo} alt="" width="100%"/>
                 <h1>Trazabilidad</h1>
                 <form
                     onSubmit={onSubmit}
@@ -92,9 +90,6 @@ const Login = (props) => {
                         />
                     </div>
                 </form>
-                {<Link to={'/registrarse'} className="enlace-cuenta">
-                    Obtener cuenta 
-                </Link>}
             </div>
         </div>
      );

@@ -6,11 +6,9 @@ import Dropzone from '../util/Dropzone';
 const CargarPedidos = () => {
 
     //EXTRAER EL CONTEXT 
-    const pedidoContext = useContext(PedidoContext); 
-    const { seleccionado } = pedidoContext;
+    /*const pedidoContext = useContext(PedidoContext); 
 
     //EVALUAR SI LA FUNCIONALIDAD ESTA SELECCIONADA
-    if(seleccionado !== 'cargar') return null; 
 
     const onchange = (e) => {
         console.log(e.target.name);
@@ -25,7 +23,7 @@ const CargarPedidos = () => {
         alert(reader.result);
         console.log(reader.result);
         }
-        reader.readAsText(files[0]); */
+        reader.readAsText(files[0]); 
     }
     const onsubmit = (e) => {
         e.preventDefault();
@@ -38,12 +36,11 @@ const CargarPedidos = () => {
                     <button type="submit" onSubmit={onsubmit}>
                         enviar 
                     </button>
-                </div> */
-    }
+                </div> 
+    }*/
     return ( 
         <Fragment>
             <h1>CARGAR PEDIDOS</h1>
-           
             <Dropzone/>
         </Fragment>
         

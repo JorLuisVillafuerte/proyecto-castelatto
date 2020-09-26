@@ -4,11 +4,10 @@ import ObservacionContext from '../../context/observaciones/observacionContext';
 
 const AgregarObservacion = () => {
     const alertaContext = useContext(AlertaContext);
-    const {alerta, mostrarAlerta} = alertaContext;
+    const {alerta} = alertaContext;
 
     const observacionContext = useContext(ObservacionContext);
-    const { seleccionado, observaciones} = observacionContext;
-
+    const { seleccionado} = observacionContext;
     if(seleccionado !== 'agregar') return null;
     return (
 

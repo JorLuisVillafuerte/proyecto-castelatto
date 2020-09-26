@@ -11,11 +11,12 @@
     "axios": "^0.20.0",
     "jsonwebtoken": "^8.5.1",
     "material-table": "^1.69.0",
-    "moment": "^2.28.0",
+    "moment": "^2.29.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.0.3",
     "react-file-reader": "^1.1.4",
+    "react-perfect-scrollbar": "^1.5.8",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "tailwindcss": "^1.7.3"

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import AuthContext from '../../context/auth/authContext';
+import AuthContext from '../../context/autenticacion/authContext';
 
 const Barra = () => {
 

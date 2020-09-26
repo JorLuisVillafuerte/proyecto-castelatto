@@ -18,24 +18,18 @@ import clienteAxios from '../../config/axios';
 //STATE INICIAL DE PEDIDOS
 const PedidoState = props => {
 
-
     //ESTADO INICIAL
     const initialState = {
         pedidos : [],
-        seleccionado: null,
-        pedidoBuscado: null,
-        pedidoModal: null,
+        //seleccionado: null,
+        //pedidoBuscado: null,
         msg: null,
-        //errorFormulario: false,
-        //proyectoActual: null,
-        //mensaje: null
     }
 
     //DISPATCH PARA EJECUTAR ACCIONES 
     const [state, dispatch] = useReducer(pedidoReducer, initialState);
 
     //SERIE DE FUNCIONES PARA EL CRUD
-
     const obtenerPedidos = async() => {
         try {
             const respuesta = await clienteAxios.get('pedidos/');
@@ -100,7 +94,6 @@ const PedidoState = props => {
 
     } 
 
-
     const mostrarSeleccionado = (dato) => {
         dispatch({
             type: MOSTRAR_SELECCIONADO,
@@ -123,26 +116,15 @@ const PedidoState = props => {
             payload: pedidos
         })*/
     }
-    const setIdPedidoModal = (dato) => {
-        dispatch({
-            type: SET_ID_MODAL,
-            payload: dato
-        })
-    }
-
 
     return(
         <pedidoContext.Provider
             value={{
                 pedidos: state.pedidos,
-                seleccionado: state.seleccionado,
-                pedidoBuscado: state.pedidoBuscado,
-                pedidoModal: state.pedidoModal,
                 msg: state.msg,
                 mostrarSeleccionado,
                 buscarPedido,
                 resetBusqueda,
-                setIdPedidoModal,
                 obtenerPedidos,
                 editarPedido,
                 eliminarPedido

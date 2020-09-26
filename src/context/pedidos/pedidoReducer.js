@@ -46,12 +46,6 @@ export default (state, action) => {
                 ...state,
                 pedidos: action.payload
             }
-        case SET_ID_MODAL:
-            console.log(action.payload);
-            return {
-                ...state,
-                pedidoModal: action.payload
-            }
 
         default:
             return state;
