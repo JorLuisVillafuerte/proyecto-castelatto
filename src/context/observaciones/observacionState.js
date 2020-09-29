@@ -1,40 +1,21 @@
 import React, { useReducer } from 'react'
-//import {v4 as uuidv4} from 'uuid';
 import observacionContext from './observacionContext';
 import observacionReducer from './observacionReducer';
-
+import clienteAxios from '../../config/axios';
 import {
-    MOSTRAR_SELECCIONADO
+    EDITAR_OBSERVACION,
+    ELIMINAR_OBSERVACION,
+    ERROR,
+    OBTENER_OBSERVACIONES
 } from '../../types';
 
 //STATE INICIAL DE Observacion
 const ObservacionState = props => {
 
-    const observaciones = [{
-        id_obs: 1,
-        pedidoAsociado: 2,
-        numero: 156,
-        descripcion: 'Aca va alguan descripcion',
-        motivo: '',
-        codigoProducto: '',
-        cantidadPiezas: 10,
-        cantidadPiezasFalla: 5,
-    },{
-        id_obs: 1,
-        pedidoAsociado: 2,
-        numero: 156,
-        descripcion: 'Aca va alguan descripcion',
-        motivo: '',
-        codigoProducto: '',
-        cantidadPiezas: 10,
-        cantidadPiezasFalla: 5,
-    }
-    ]
-
     //ESTADO INICIAL
     const initialState = {
-        observaciones : observaciones,
-        seleccionado: null,
+        observaciones : [],
+        msg: null,
         //errorFormulario: false,
         //proyectoActual: null,
         //mensaje: null
@@ -44,21 +25,100 @@ const ObservacionState = props => {
     const [state, dispatch] = useReducer(observacionReducer, initialState);
 
     //SERIE DE FUNCIONES PARA EL CRUD
-
-
-    const mostrarSeleccionado = (dato) => {
-        dispatch({
-            type: MOSTRAR_SELECCIONADO,
-            payload: dato
-        })
+    const obtenerObservaciones = async() => {
+        try {
+            const respuesta = await clienteAxios.get('observaciones/');
+            console.log(respuesta.data);
+            dispatch({
+                type: OBTENER_OBSERVACIONES,
+                payload: respuesta.data
+            });
+        } catch (error) {
+            console.log(error.response);
+            const alerta = {
+                msg: 'Ocurrio un error al cargar los registros.',
+                categoria: 'alerta-error'
+            }
+            dispatch({
+                type: ERROR,
+                payload: alerta
+            });
+        }
     }
     
+    const agregarObservacion  = async (observacion) => {
+        try {
+            const respuesta = await clienteAxios.post('observaciones/', observacion);
+            console.log(respuesta.data);
+            dispatch({
+                type: EDITAR_OBSERVACION,
+                payload: respuesta.data
+            });
+        } catch (error) {
+            console.log(error.response);
+            const alerta = {
+                msg: 'Ocurrio un error al guardar el registro.',
+                categoria: 'alerta-error'
+            }
+            dispatch({
+                type: ERROR,
+                payload: alerta
+            });
+        }
+
+    }
+    const editarObservacion= async(observacion) => {
+        try {
+            const respuesta = await clienteAxios.post('observaciones/', observacion);
+            console.log(respuesta.data);
+            dispatch({
+                type: EDITAR_OBSERVACION,
+                payload: respuesta.data
+            });
+        } catch (error) {
+            console.log(error.response);
+            const alerta = {
+                msg: 'Ocurrio un error al editar el registro.',
+                categoria: 'alerta-error'
+            }
+            dispatch({
+                type: ERROR,
+                payload: alerta
+            });
+        }
+
+    } 
+    const eliminarObservacion = async(observacion) => {
+        try {
+            const respuesta = await clienteAxios.delete(`observaciones/id/${observacion.idobservacion}`);
+            console.log(respuesta.data);
+            dispatch({
+                type: ELIMINAR_OBSERVACION,
+                payload: observacion.idobservacion
+            });
+        } catch (error) {
+            console.log(error.response);
+            const alerta = {
+                msg: 'Ocurrio un error al eliminar el registro.',
+                categoria: 'alerta-error'
+            }
+            dispatch({
+                type: ERROR,
+                payload: alerta
+            });
+        }
+
+    } 
+
     return(
         <observacionContext.Provider
             value={{
                observaciones: state.observaciones,
-               seleccionado: state.seleccionado,
-               mostrarSeleccionado
+               msg: state.msg,
+               agregarObservacion,
+               obtenerObservaciones,
+               editarObservacion,
+               eliminarObservacion
             }}
         >
             {props.children}

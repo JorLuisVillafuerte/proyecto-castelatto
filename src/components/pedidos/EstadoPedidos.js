@@ -35,6 +35,7 @@ const EstadoPedidos = () => {
         var fecha = new Date(fecha1);
         return `${fecha.getDate()}-${fecha.getMonth()+1}-${fecha.getFullYear()}`
     }
+    //TODO://poner set time out pasar prod/terminado
     const pasarProduccion = (e) => {
         if(pedido.fechaProduccion === null){
             pedido.fechaProduccion = new Date();

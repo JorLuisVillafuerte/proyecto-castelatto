@@ -2,7 +2,7 @@ import React, { useReducer } from 'react'
 import usuarioContext from './usuarioContext';
 import usuarioReducer from './usuarioReducer';
 
-import { ELIMINAR_PEDIDO, OBTENER_USUARIOS, ERROR, EDITAR_USUARIO, ELIMINAR_USUARIO} from '../../types';
+import { ELIMINAR_PEDIDO, OBTENER_USUARIOS, ERROR, EDITAR_USUARIO, ELIMINAR_USUARIO, AGREGAR_USUARIO} from '../../types';
 import clienteAxios from '../../config/axios';
 
 //STATE INICIAL DE PEDIDOS
@@ -39,8 +39,30 @@ const UsuarioState = props => {
         }
 
     } 
+    const agregarUsuario = async(usuario) => {
+        try {
+            const respuesta = await clienteAxios.post('usuarios/', usuario);
+            console.log(respuesta.data);
+            dispatch({
+                type: AGREGAR_USUARIO,
+                payload: respuesta.data
+            });
+        } catch (error) {
+            console.log(error.response);
+            const alerta = {
+                msg: 'Ocurrio un error al crear el registro.',
+                categoria: 'alerta-error'
+            }
+            dispatch({
+                type: ERROR,
+                payload: alerta
+            });
+        }
+
+    }
     const editarUsuario = async(usuario) => {
         try {
+            console.log('iniciando edicion de usuario')
             const respuesta = await clienteAxios.post('usuarios/', usuario);
             console.log(respuesta.data);
             dispatch({
@@ -89,7 +111,8 @@ const UsuarioState = props => {
                 msg: state.msg,
                 obtenerUsuarios,
                 editarUsuario,
-                eliminarUsuario
+                eliminarUsuario,
+                agregarUsuario
             }}
         >
             {props.children}

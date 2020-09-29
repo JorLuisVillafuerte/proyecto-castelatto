@@ -7,24 +7,25 @@ import { columnasUsuarios } from '../util/Columnas';
 const VerUsuarios = () => {
     
     const usuarioContext = useContext(UsuarioContext); 
-    const {obtenerUsuarios,usuarios,eliminarUsuario,editarUsuario} = usuarioContext;
+    const {obtenerUsuarios, usuarios ,eliminarUsuario,editarUsuario} = usuarioContext;
     const alertaContext = useContext(AlertaContext);
     const {alerta} = alertaContext;
     
     useEffect(() => {
         obtenerUsuarios();
-        console.log(usuarios);
+        //console.log(usuarios); // == system.out.println(usuarios)
     },[]);
 
 
-    const handleRowUpdate = (newData, oldData, resolve, reject) => {
+    const actualizarFila = (newData, oldData, resolve, reject) => {
+        console.log('paso por aca');
         editarUsuario(newData);
         setTimeout(() => {
             resolve()
         }, 3000);
         
     }
-    const handleRowDelete = async (oldData, resolve, reject) => {
+    const eliminarFila = async (oldData, resolve, reject) => {
         eliminarUsuario(oldData);
         setTimeout(() => {
             resolve()
@@ -42,12 +43,12 @@ const VerUsuarios = () => {
                     <TablaGestion
                         columns={columnasUsuarios}
                         data={usuarios}
-                        handleRowUpdate={handleRowUpdate}
-                        handleRowDelete={handleRowDelete}
+                        handleRowUpdate={actualizarFila}
+                        handleRowDelete={eliminarFila}
                         />
                 </div>        
         </Fragment>
-     );
+    );
 }
  
 export default VerUsuarios;

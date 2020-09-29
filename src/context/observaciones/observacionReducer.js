@@ -1,11 +1,27 @@
-import { MOSTRAR_SELECCIONADO} from "../../types";
+import { EDITAR_OBSERVACION, ELIMINAR_OBSERVACION, ERROR, OBTENER_OBSERVACIONES} from "../../types";
 
 export default (state, action) => {
     switch (action.type) {
-        case MOSTRAR_SELECCIONADO:
+        case OBTENER_OBSERVACIONES:
             return {
                 ...state,
-                seleccionado: action.payload
+                observaciones: action.payload,
+                msg: null
+            }
+        case EDITAR_OBSERVACION: 
+            return {
+                ...state,
+                observaciones: state.observaciones.map(observacion => observacion.idobservacion === action.payload.idobservacion ? action.payload : observacion)
+            }
+        case ELIMINAR_OBSERVACION:
+            return {
+                ...state,
+                observaciones: state.observaciones.filter(observacion => observacion.idobservacion !== action.payload)
+            }
+        case ERROR:
+            return {
+                ...state,
+                msg: action.payload,
             }
         default:
             return state;

@@ -1,11 +1,20 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import AlertaContext from '../../context/alertas/alertaContext';
+import UsuarioContext from '../../context/usuarios/usuarioContext';
 import {Row,Col} from 'reactstrap';
 const AgregarUsuario = () => {
 
     const alertaContext = useContext(AlertaContext);
     const {alerta,mostrarAlerta} = alertaContext;
 
+    const usuarioContext = useContext(UsuarioContext);
+    const {agregarUsuario, msg} = usuarioContext;
+
+    useEffect(() => {
+        if(msg){
+            mostrarAlerta(msg.msg, msg.categoria); 
+        }
+    }, [msg])
     const [usuario, setUsuario] = useState({ 
         nombre: '',
         apellido: '', 
@@ -36,6 +45,7 @@ const AgregarUsuario = () => {
             mostrarAlerta('El nombre o apellido no puede ser numerico', 'alerta-error');
             return;
         }
+        //TODO; VALIDAR SI TIENE UN NUMERO EL STRING 
         //VALIDAR PASSWORD MINIMO  
         if (password.length < 6) {
             mostrarAlerta('El password debe ser de al menos de 6 caracteres', 'alerta-error');
@@ -52,11 +62,13 @@ const AgregarUsuario = () => {
             return;
             }
         }
+        if(dni.length !== 8){
+            mostrarAlerta('El campo dni debe tener 8 digitos', 'alerta-error');
+            return;
+        }
 
-        console.log('aa')
         //ACTION 
-        //console.log({ nombre, apellido, email, dni, cargo, password,galpon });       
-        //registrarUsuario({ nombre, apellido, email, dni, cargo, password,galpon });
+        agregarUsuario(usuario);
     }
     return ( 
             <>

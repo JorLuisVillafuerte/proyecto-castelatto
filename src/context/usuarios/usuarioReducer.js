@@ -1,4 +1,4 @@
-import { EDITAR_USUARIO, ELIMINAR_USUARIO, ERROR, OBTENER_USUARIO, OBTENER_USUARIOS } from "../../types";
+import { AGREGAR_USUARIO, EDITAR_USUARIO, ELIMINAR_USUARIO, ERROR, OBTENER_USUARIO, OBTENER_USUARIOS } from "../../types";
 
 export default (state, action) => {
     switch (action.type) {
@@ -8,6 +8,12 @@ export default (state, action) => {
                 usuarios: action.payload,
                 msg: null
             }
+        case AGREGAR_USUARIO:
+            return {
+                ...state,
+                usuarios: [...state.usuarios, action.payload],
+                msg: null
+        }
         case EDITAR_USUARIO: 
             return {
                 ...state,

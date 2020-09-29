@@ -2,7 +2,7 @@ import { Button } from '@material-ui/core';
 import MaterialTable from 'material-table';
 import React from 'react';
 const TablaGestion = (props) => {
-    console.log('Datos que recibe la tabla: '+ JSON.stringify(props.data));
+    //console.log('Datos que recibe la tabla: '+ JSON.stringify(props.data));
   
     if(props.type=== 'estadoPedido'){
       return (
