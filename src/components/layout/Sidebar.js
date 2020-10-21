@@ -3,11 +3,12 @@ import React from 'react';
 //import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { Nav } from 'reactstrap';
-import PerfectScrollbar from 'react-perfect-scrollbar'
+import PerfectScrollbar from 'react-perfect-scrollbar';
+import AuthContext from '../../context/autenticacion/authContext';
 const Sidebar = (props) => {
     
-    /* const pedidoContext = useContext(PedidoContext); 
-    const { mostrarGestionPedidos } = pedidoContext; */
+    const authContext = useContext(AuthContext); 
+    const {usuario} = authContext;
 
     const activeRoute = (routeName) => {
         return props.location.pathname.indexOf(routeName) > -1 ? 'selected' : '';
@@ -22,6 +23,7 @@ const Sidebar = (props) => {
                         <Nav style={{display: 'block'}}>
 
                             {props.MainRoutes.map((prop, key) => {
+
                                 return (
                                     <li className={activeRoute.bind(prop.path) + (prop.pro ? ' active active-pro' : '') + ' sidebar-item'} key={key}>
                                         <NavLink to={prop.path} className="sidebar-link" activeClassName="active">

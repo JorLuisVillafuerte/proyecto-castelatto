@@ -50,6 +50,73 @@ const PedidoState = props => {
             });
         }
 
+    }
+    
+    //SERIE DE FUNCIONES PARA EL CRUD
+    const agregarPedido = async(pedido) => {
+        try {
+            //console.log(pedido);
+            const pedidoRespuesta = await clienteAxios.post('pedidos/',pedido[0]);
+            //console.log(respuesta.data);
+            const productos = await clienteAxios.get('productos/');
+            productos.data.forEach(prd => {
+                for (let x = 0; x < pedido.length; x++) {
+                    if(prd.codProducto === pedido[x].codProducto){
+                        pedido[x].codProducto = prd.idproducto;
+                    }
+                    
+                }
+            });
+            console.log(pedido);
+            let pedidoDetalle = [];
+            for (let x = 0; x < pedido.length; x++) {
+                const obj = {
+                    idpedido: pedidoRespuesta.data.idpedido,
+                    idproducto: Number(pedido[x].codProducto),
+                    cantidad: pedido[x].cantidad,
+                    unidades: pedido[x].unidades
+                }
+                pedidoDetalle.push(obj);
+                
+            }
+            await clienteAxios.post('pedidoDetalle/all',pedidoDetalle);
+            return true;
+
+        } catch (error) {
+            console.log(error.response);
+            const alerta = {
+                msg: 'Ocurrio un error al agregar los pedidos.',
+                categoria: 'alerta-error'
+            }
+            dispatch({
+                type: ERROR_PEDIDOS,
+                payload: alerta
+            });
+            return null;
+        }
+
+    }
+
+    
+    //SERIE DE FUNCIONES PARA EL CRUD
+    const obtenerPedidosDetallePorId = async(id) => {
+        try {
+            const respuesta = await clienteAxios.get(`pedidoDetalle/idpedido/${id}`);
+            console.log(respuesta.data);
+            return respuesta;
+        } catch (error) {
+            console.log(error.response);
+            const alerta = {
+                msg: 'Ocurrio un error al cargar el pedido.',
+                categoria: 'alerta-error'
+            }
+            dispatch({
+                type: ERROR_PEDIDOS,
+                payload: alerta
+            });
+            return null;
+        }
+
     } 
     const editarPedido = async(pedido) => {
         try {
@@ -127,7 +194,9 @@ const PedidoState = props => {
                 resetBusqueda,
                 obtenerPedidos,
                 editarPedido,
-                eliminarPedido
+                eliminarPedido,
+                obtenerPedidosDetallePorId,
+                agregarPedido
             }}
         >
             {props.children}

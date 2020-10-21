@@ -11,10 +11,7 @@ import AuthState from './context/autenticacion/authState';
 import PedidoState from './context/pedidos/pedidoState';
 import ObservacionState from './context/observaciones/observacionState';
 import UsuarioState from './context/usuarios/usuarioState';
-/*import GestionObservaciones from './components/observaciones/GestionObservaciones';
-import GestionReportes from './components/reportes/GestionReportes';
 import PrivateRoute from './config/PrivateRoute';
-*/
 ReactDOM.render(
   <React.StrictMode>
     <PedidoState>
@@ -25,7 +22,7 @@ ReactDOM.render(
                 <HashRouter>
                   <Switch>
                       <Route exact path="/" component={Login} />
-                      <Route path="/dashboard" component={Dashboard} />
+                      <PrivateRoute path="/dashboard" component={Dashboard} />
                   </Switch>
                 </HashRouter>
             </AlertaState>

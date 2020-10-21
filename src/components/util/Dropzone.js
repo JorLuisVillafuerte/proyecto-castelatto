@@ -1,27 +1,46 @@
 import React, { useContext, useCallback } from 'react';
 import {useDropzone} from 'react-dropzone';
 import AlertaContext from '../../context/alertas/alertaContext';
-
+import PedidoContext from '../../context/pedidos/pedidoContext';
+import {parse} from 'papaparse';
 const Dropzone = () => {
     const alertaContext = useContext(AlertaContext);
     const {alerta,mostrarAlerta} = alertaContext;
+    const pedidoContext = useContext(PedidoContext);
+    const {agregarPedido} = pedidoContext;
 
     const onDrop = useCallback( (acceptedFiles) =>{
         console.log(acceptedFiles);
         if(acceptedFiles.length > 0){
             mostrarAlerta('El archivo se subio correctamente', 'alerta-ok');
-            acceptedFiles.forEach((file) => {
-                const reader = new FileReader()
-                reader.onabort = () => console.log('file reading was aborted')
-                reader.onerror = () => console.log('file reading has failed')
-                reader.onload = () => {
-                // Do whatever you want with the file contents
-                  const binaryStr = reader.result
-                  console.log(binaryStr)
+            //console.log(acceptedFiles);
+            acceptedFiles.forEach(async(file) => {
+                const text = await file.text();
+                const result = parse (text, {header:true});
+                let codigosPedidos = []
+                result.data.forEach(ped => {
+                    const aux = ped.codPedido;
+                    codigosPedidos.push(aux);
+                });
+                let pedidosParaGenerar = [];
+                codigosPedidos = codigosPedidos.filter((el, index) => codigosPedidos.indexOf(el) === index)
+                //console.log(codigosPedidos);
+                for (let x = 0; x < codigosPedidos.length; x++) {
+                    const pedidoGenerar = result.data.filter(ped => ped.codPedido == codigosPedidos[x]);
+                    pedidosParaGenerar.push(pedidoGenerar);
                 }
-                reader.readAsArrayBuffer(file);
-              })
+                console.log(pedidosParaGenerar);
+                let resultado = false;
+                for (let x = 0; x < pedidosParaGenerar.length; x++) {
+                    resultado = await agregarPedido(pedidosParaGenerar[x]);
+                }
+                if(resultado){
+                    mostrarAlerta('Los registros se cargaron correctamente', 'alerta-ok');
+                }
+
+            });
         }
+      
     })
 
     const {getRootProps, getInputProps, isDragActive, acceptedFiles} = useDropzone({onDrop});

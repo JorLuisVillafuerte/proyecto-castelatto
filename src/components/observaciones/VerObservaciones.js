@@ -7,7 +7,7 @@ import TablaGestion from '../tablas/TablaGestion';
 const VerObservaciones = () => {
 
     const alertaContext = useContext(AlertaContext);
-    const {alerta} = alertaContext;
+    const {alerta, mostrarAlerta} = alertaContext;
 
     const observacionContext = useContext(ObservacionContext);
     const { observaciones, obtenerObservaciones, editarObservacion, eliminarObservacion} = observacionContext;
@@ -18,10 +18,23 @@ const VerObservaciones = () => {
 
 
     const handleRowUpdate = (newData, oldData, resolve, reject) => {
-        editarObservacion(newData);
-        setTimeout(() => {
+        console.log(newData);
+        const cantidadPiezasMax = oldData.idpedido.pedidoDetalleList.filter(ped => ped.idproducto.codProducto == newData.idproducto.codProducto);
+        console.log(cantidadPiezasMax[0]);
+        if(newData.cantidadPiezas < 0){
+            mostrarAlerta('La cantidad de piezas a registrar debe ser mayor a cero','alerta-error');
+            reject();
+        }else if(cantidadPiezasMax.length > 0 && cantidadPiezasMax[0].cantidad < newData.cantidadPiezas){
+            mostrarAlerta('La cantidad de piezas es mayor a la del pedido: '+cantidadPiezasMax[0].cantidad, 'alerta-error');
+            reject();
+        }else{
+            console.log('aaa')
+            editarObservacion(newData);
+            setTimeout(() => {
+                resolve()
+            }, 3000);
             resolve()
-        }, 3000);
+        }
         
     }
     const handleRowDelete = async (oldData, resolve, reject) => {

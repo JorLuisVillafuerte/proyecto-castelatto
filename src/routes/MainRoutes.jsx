@@ -1,7 +1,8 @@
 import GestionPedidos from '../components/pedidos/GestionPedidos';
 import GestionObservaciones from '../components/observaciones/GestionObservaciones';
-import GestionReportes from '../components/reportes/GestionReportes';
 import GestionUsuarios from '../components/usuarios/GestionUsuarios';
+import GestionEstadistica from '../components/estadistica/GestionEstadistica';
+
 
 var MainRoutes = [
     {
@@ -18,6 +19,11 @@ var MainRoutes = [
       path: '/dashboard/usuarios',
       nombre: 'Usuarios',
       component: GestionUsuarios
+    },
+    {
+      path: '/dashboard/estadistica',
+      nombre: 'Estadistica',
+      component: GestionEstadistica
     },
 ]
 export default MainRoutes;

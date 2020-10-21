@@ -45,7 +45,6 @@ const AgregarUsuario = () => {
             mostrarAlerta('El nombre o apellido no puede ser numerico', 'alerta-error');
             return;
         }
-        //TODO; VALIDAR SI TIENE UN NUMERO EL STRING 
         //VALIDAR PASSWORD MINIMO  
         if (password.length < 6) {
             mostrarAlerta('El password debe ser de al menos de 6 caracteres', 'alerta-error');
@@ -69,7 +68,21 @@ const AgregarUsuario = () => {
 
         //ACTION 
         agregarUsuario(usuario);
+        setUsuario({
+            nombre: '',
+            apellido: '', 
+            email: '', 
+            dni: '',
+            galpon: '',
+            cargo: '',
+            password: '', 
+            confirmarPassword: '' 
+        });
+        if(msg === null){
+            mostrarAlerta('El usuario se agrego correctamente', 'alerta-ok');
+        }
     }
+
     return ( 
             <>
             {alerta ? (<div className={`alerta ${alerta.categoria}`} >{alerta.msg}</div>) : null}

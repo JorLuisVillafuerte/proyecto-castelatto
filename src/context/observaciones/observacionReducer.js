@@ -1,4 +1,4 @@
-import { EDITAR_OBSERVACION, ELIMINAR_OBSERVACION, ERROR, OBTENER_OBSERVACIONES} from "../../types";
+import { AGREGAR_OBSERVACION, EDITAR_OBSERVACION, ELIMINAR_OBSERVACION, ERROR, OBTENER_OBSERVACIONES} from "../../types";
 
 export default (state, action) => {
     switch (action.type) {
@@ -6,6 +6,12 @@ export default (state, action) => {
             return {
                 ...state,
                 observaciones: action.payload,
+                msg: null
+            }
+        case AGREGAR_OBSERVACION:
+            return {
+                ...state,
+                observaciones: [...state.observaciones, action.payload],
                 msg: null
             }
         case EDITAR_OBSERVACION: 

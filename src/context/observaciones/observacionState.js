@@ -3,6 +3,7 @@ import observacionContext from './observacionContext';
 import observacionReducer from './observacionReducer';
 import clienteAxios from '../../config/axios';
 import {
+    AGREGAR_OBSERVACION,
     EDITAR_OBSERVACION,
     ELIMINAR_OBSERVACION,
     ERROR,
@@ -48,10 +49,11 @@ const ObservacionState = props => {
     
     const agregarObservacion  = async (observacion) => {
         try {
+            observacion.idproducto = Number(observacion.idproducto);
             const respuesta = await clienteAxios.post('observaciones/', observacion);
             console.log(respuesta.data);
             dispatch({
-                type: EDITAR_OBSERVACION,
+                type: AGREGAR_OBSERVACION,
                 payload: respuesta.data
             });
         } catch (error) {

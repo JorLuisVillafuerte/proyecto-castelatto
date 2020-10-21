@@ -42,10 +42,10 @@ export const columnasUsuarios = [
 ]
 export const columnasObservaciones = [
     { title: 'id', field: 'idobservacion', hidden: true },
-    {
+    /*{
       title: 'Codigo', field: 'codObservacion', validate: rowData => rowData.codObservacion === '' ?
         { isValid: false, helperText: 'Codigo no puede estar vacio' } : true
-    },
+    },*/
     {
       title: 'Motivo', field: 'motivo', editable: 'never'
     },
