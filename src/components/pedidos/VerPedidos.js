@@ -11,9 +11,10 @@ const VerPedidos = () => {
     const {alerta} = alertaContext;
     
     useEffect(() => {
-        obtenerPedidos();
-        console.log(pedidos);
-    },[]);
+        if(pedidos.length === 0){
+            obtenerPedidos();
+        }
+    }, []);
 
     const actualizarFila = (newData, oldData, resolve, reject) => {
         editarPedido(newData);

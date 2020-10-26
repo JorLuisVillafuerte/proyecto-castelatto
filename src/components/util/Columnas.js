@@ -12,6 +12,7 @@ export const columnasPedidos = [
     { title: 'Fecha Emision', field: 'fechaEmision', type: 'date', editable: 'never'},
     { title: 'Fecha Produccion', field: 'fechaProduccion', type: 'date', editable: 'never' },
     { title: 'Fecha Terminado', field: 'fechaTerminado', type: 'date', editable: 'never' },
+    { title: 'Galpon', field: 'galpon', editable: 'never' },
 ]
 export const columnasEstadoPedidos = [
     { title: 'id', field: 'idpedido', hidden: true },
@@ -23,6 +24,7 @@ export const columnasEstadoPedidos = [
     { title: 'Fecha Emision', field: 'fechaEmision', type: 'date', editable: 'never' },
     { title: 'Fecha Produccion', field: 'fechaProduccion', type: 'date', editable: 'never' },
     { title: 'Fecha Terminado', field: 'fechaTerminado', type: 'date', editable: 'never' },
+    { title: 'Galpon', field: 'galpon', editable: 'never' },
 ]
 export const columnasUsuarios = [
     { title: 'id', field: 'idusuario', hidden: true },

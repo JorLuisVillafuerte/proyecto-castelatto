@@ -4,12 +4,12 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Nav } from 'reactstrap';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import AuthContext from '../../context/autenticacion/authContext';
+//import AuthContext from '../../context/autenticacion/authContext';
 const Sidebar = (props) => {
     
-    const authContext = useContext(AuthContext); 
+    /*const authContext = useContext(AuthContext); 
     const {usuario} = authContext;
-
+*/
     const activeRoute = (routeName) => {
         return props.location.pathname.indexOf(routeName) > -1 ? 'selected' : '';
     }

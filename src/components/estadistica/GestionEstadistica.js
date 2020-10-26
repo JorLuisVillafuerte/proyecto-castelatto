@@ -15,10 +15,10 @@ const GestionEstadistica = () => {
     const observacionesContext = useContext(ObservacionesContext);
     const {obtenerObservaciones, observaciones} = observacionesContext;
     useEffect(() => {
-        if(pedidos.length < 1){
+        if(pedidos.length === 0){
             obtenerPedidos()
         }
-        if(observaciones.length < 1){
+        if(observaciones.length === 0){
             obtenerObservaciones()
         }
     }, []);
