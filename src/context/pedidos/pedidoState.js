@@ -70,8 +70,8 @@ const PedidoState = props => {
                     
                 }
             });
-            if(contador !== contadorpedido){
-                console.log(error.response);
+            /*if(contador !== contadorpedido){
+
                 const alerta = {
                     msg: 'Uno o los productos ingresados no existen.',
                     categoria: 'alerta-error'
@@ -81,7 +81,7 @@ const PedidoState = props => {
                     payload: alerta
                 });
                 return null;
-            }else{
+            }else{*/
                 const pedidoRespuesta = await clienteAxios.post('pedidos/',pedido[0]);
                 console.log(pedido);
                 let pedidoDetalle = [];
@@ -97,7 +97,7 @@ const PedidoState = props => {
                 }
                 await clienteAxios.post('pedidoDetalle/all',pedidoDetalle);
                 return true;
-            }
+            
 
         } catch (error) {
             console.log(error.response);

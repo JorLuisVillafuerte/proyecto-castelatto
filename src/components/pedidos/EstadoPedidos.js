@@ -45,7 +45,6 @@ const EstadoPedidos = () => {
         var fecha = new Date(fecha1);
         return `${fecha.getDate()}-${fecha.getMonth()+1}-${fecha.getFullYear()}`
     }
-    //TODO://poner set time out pasar prod/terminado
     const pasarProduccion = (e) => {
         if(usuario && usuario.cargo == 'operario'){
             if(usuario.galpon == '' || usuario.galpon.length == 0){
@@ -54,6 +53,7 @@ const EstadoPedidos = () => {
             }else{
                 if(pedido.fechaProduccion === null){
                     pedido.fechaProduccion = new Date();
+                    pedido.galpon = usuario.galpon;
                     editarPedido(pedido);
                     mostrarAlerta('El pedido ha sido pasado a produccion.'+formatearFecha(pedido.fechaProduccion), 'alerta-ok');
                     setOpenPopup(false);
@@ -68,22 +68,32 @@ const EstadoPedidos = () => {
         }
     }
     const pasarTerminado = (e) => {
-        if(pedido.fechaTerminado === null && pedido.fechaProduccion !== null){
-            pedido.fechaTerminado = new Date();
-            editarPedido(pedido);
-            mostrarAlerta('El pedido ha sido pasado a Terminado.'+formatearFecha(pedido.fechaTerminado), 'alerta-ok');
-            setOpenPopup(false);
-        }else{
-            if(pedido.fechaProduccion == null){
-                mostrarAlerta('Este pedido aun no fue pasado a produccion', 'alerta-error');
+        if(usuario && usuario.cargo == 'operario'){
+            if(usuario.galpon == '' || usuario.galpon.length == 0){
+                mostrarAlerta('El operario no tiene un galpon asignado', 'alerta-error');
                 return;
             }else{
-                mostrarAlerta('Este pedido ya tiene fecha de Terminado: '+formatearFecha(pedido.fechaTerminado), 'alerta-error');
-                setOpenPopup(false);
-                return;
-
+                if(pedido.fechaTerminado === null && pedido.fechaProduccion !== null){
+                    pedido.fechaTerminado = new Date();
+                    editarPedido(pedido);
+                    mostrarAlerta('El pedido ha sido pasado a Terminado.'+formatearFecha(pedido.fechaTerminado), 'alerta-ok');
+                    setOpenPopup(false);
+                }else{
+                    if(pedido.fechaProduccion == null){
+                        mostrarAlerta('Este pedido aun no fue pasado a produccion', 'alerta-error');
+                        return;
+                    }else{
+                        mostrarAlerta('Este pedido ya tiene fecha de Terminado: '+formatearFecha(pedido.fechaTerminado), 'alerta-error');
+                        setOpenPopup(false);
+                        return;
+        
+                    }
+                }
             }
+        }else{
+            mostrarAlerta('Solo un operario puede realizar el cambio de estado', 'alerta-error');
         }
+
     }
     //INTERFAZ DEL COMPONENTE
     if(pedidos.length === 0){return null;}

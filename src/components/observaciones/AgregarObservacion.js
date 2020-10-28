@@ -28,11 +28,13 @@ const AgregarObservacion = () => {
     const [pedidoSeleccionado, setPedidoSeleccionado] = useState(null);
 
     const onblur = async(e) => {
+        
         if(codPedido.trim() !== ''){
             let ped = await pedidos.find(pedido => pedido.codPedido === codPedido);
-            if(ped){
+            if(ped && ped.fechaTerminado !== null){
                 const pedidoCompleto = await obtenerPedidosDetallePorId(ped.idpedido);
                 console.log(pedidoCompleto);
+                pedidoCompleto.data.galpon = ped.galpon;
                 setPedidoSeleccionado(pedidoCompleto.data);
                 setObservacion({ 
                     ...observacion, 
@@ -40,7 +42,7 @@ const AgregarObservacion = () => {
                 });
             }else{
                 setPedidoSeleccionado(null);
-                mostrarAlerta('No existe o no se encontro un pedido con el codigo proporcionado', 'alerta-error');
+                mostrarAlerta('El pedido no existe o aun no fue terminado.', 'alerta-error');
             }     
         }
         
@@ -105,6 +107,15 @@ const AgregarObservacion = () => {
                     </div>
                     {(pedidoSeleccionado === null) ? (null):(
                         <>
+                        <div className="campo-form">
+                            <label id="label-form-obs" htmlFor="galpon">Galpon de fabricacion</label>
+                            <input 
+                                type="text" 
+                                name="galpon" 
+                                value={pedidoSeleccionado.galpon}
+                                disabled
+                            />
+                        </div>
                         <div className="campo-form">
                             <label id="label-form-obs" htmlFor="">Codigo de producto</label>
                             <select 

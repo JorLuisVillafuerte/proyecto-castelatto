@@ -3,12 +3,15 @@ import PedidoContext from '../../context/pedidos/pedidoContext'
 import AlertaContext from '../../context/alertas/alertaContext'
 import TablaGestion from '../tablas/TablaGestion';
 import {columnasPedidos} from '../util/Columnas';
+import AuthContext from '../../context/autenticacion/authContext';
 const VerPedidos = () => {
 
     const pedidoContext = useContext(PedidoContext); 
     const {pedidos,obtenerPedidos, editarPedido, eliminarPedido} = pedidoContext;
     const alertaContext = useContext(AlertaContext);
-    const {alerta} = alertaContext;
+    const {alerta, mostrarAlerta} = alertaContext;
+    const authContext = useContext(AuthContext);
+    const {usuario} = authContext;
     
     useEffect(() => {
         if(pedidos.length === 0){
@@ -17,17 +20,30 @@ const VerPedidos = () => {
     }, []);
 
     const actualizarFila = (newData, oldData, resolve, reject) => {
-        editarPedido(newData);
-        setTimeout(() => {
-            resolve()
-        }, 3000);
+        if(usuario && (usuario.cargo === 'jefeproduccion' || usuario.cargo === 'admin') ){
+            editarPedido(newData);
+            setTimeout(() => {
+                resolve()
+            }, 3000);
+
+        }else{
+            mostrarAlerta('No tienes los permisos para realizar la accion', 'alerta-error');
+            reject();
+            
+        }
         
     }
     const eliminarFila = async (oldData, resolve, reject) => {
-        eliminarPedido(oldData);
-        setTimeout(() => {
-            resolve()
-        }, 3000);
+        if(usuario && (usuario.cargo === 'jefeproduccion' || usuario.cargo === 'admin') ){
+            eliminarPedido(oldData);
+            setTimeout(() => {
+                resolve()
+            }, 3000);
+
+        }else{
+            mostrarAlerta('No tienes los permisos para realizar la accion', 'alerta-error');
+            reject();
+        }
     }
     if(pedidos.length === 0){return null;}
     return ( 

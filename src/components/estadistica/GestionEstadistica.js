@@ -44,13 +44,16 @@ const GestionEstadistica = () => {
                 }
             });
         });
-        let porcentaje = (Number((unidadesObservacion / unidadesGeneradas)*100)-100)*-1;
+        //let porcentaje = (Number((unidadesObservacion / unidadesGeneradas)*100)-100)*-1;
+        let porcentaje = ((unidadesGeneradas - unidadesObservacion) / unidadesGeneradas)*100;
         arrayEstadistica.push({
             label: 'Galpon 1',
             y: Number(porcentaje.toFixed(0))
         })
     }
     if(galpon2.length > 0 ){
+        unidadesGeneradas = 0
+        unidadesObservacion = 0
         galpon2.forEach(ped => {
             if(ped.pedidoDetalleList.length > 0){
                 ped.pedidoDetalleList.forEach(detalle=> {
@@ -64,16 +67,20 @@ const GestionEstadistica = () => {
                 }
             });
         });
-        let porcentaje = (Number((unidadesObservacion / unidadesGeneradas)*100)-100)*-1;
+        //let porcentaje = (Number((unidadesObservacion / unidadesGeneradas)*100)-100)*-1;
+        let porcentaje = ((unidadesGeneradas - unidadesObservacion) / unidadesGeneradas)*100;
         arrayEstadistica.push({
             label: 'Galpon 2',
             y: Number(porcentaje.toFixed(0))
         })
     }
     if(galpon3.length > 0 ){
+        unidadesGeneradas = 0;
+        unidadesObservacion = 0;
         galpon3.forEach(ped => {
             if(ped.pedidoDetalleList.length > 0){
                 ped.pedidoDetalleList.forEach(detalle=> {
+                    console.log(detalle);
                     unidadesGeneradas = unidadesGeneradas+detalle.cantidad;
                 })
             }
@@ -83,13 +90,20 @@ const GestionEstadistica = () => {
                 }
             });
         });
-        let porcentaje = (Number((unidadesObservacion / unidadesGeneradas)*100)-100)*-1;
+        console.log(unidadesObservacion);
+        console.log(unidadesGeneradas);
+        //let porcentaje = (Number((unidadesObservacion / unidadesGeneradas)*100)-100)*-1;
+        let porcentaje = ((unidadesGeneradas - unidadesObservacion) / unidadesGeneradas)*100; 
+
+        console.log(porcentaje);
         arrayEstadistica.push({
             label: 'Galpon 3',
             y: Number(porcentaje.toFixed(0))
         })
     }
     if(galpon4.length > 0 ){
+        unidadesGeneradas = 0
+        unidadesObservacion = 0
         galpon4.forEach(ped => {
             if(ped.pedidoDetalleList.length > 0){
                 ped.pedidoDetalleList.forEach(detalle=> {
@@ -102,7 +116,8 @@ const GestionEstadistica = () => {
                 }
             });
         });
-        let porcentaje = (Number((unidadesObservacion / unidadesGeneradas)*100)-100)*-1;
+        //let porcentaje = (Number((unidadesObservacion / unidadesGeneradas)*100)-100)*-1;
+        let porcentaje = ((unidadesGeneradas - unidadesObservacion) / unidadesGeneradas)*100;
         arrayEstadistica.push({
             label: 'Galpon 4',
             y: Number(porcentaje.toFixed(0))
@@ -172,6 +187,7 @@ const GestionEstadistica = () => {
                 });
                 observaciones.forEach(obs => {
                     if(obs.idproducto.codProducto === productoEficiencia.codProducto && obs.idpedido.galpon === 2){
+                        console.log('no deberia mostrarse');
                         unidadesObservacionProducto = unidadesObservacionProducto + obs.cantidadPiezas;
                     }
                 })
@@ -215,11 +231,13 @@ const GestionEstadistica = () => {
         if(unidadesGeneradasProducto == 0){
             console.log('aasda')
             mostrarAlerta('No se encontro un producto con ese codigo o con el galpon seleccionado', 'alerta-error');
+            await setoptionsPrd(null);
             return;
         }
         if(unidadesObservacionProducto == 0){
             console.log('aasdsssa')
             mostrarAlerta('No hay observaciones del producto', 'alerta-ok');
+            await setoptionsPrd(null);
             return;
         }
 
@@ -232,9 +250,14 @@ const GestionEstadistica = () => {
             label: 'Cantidad Observadas'
         });
         console.log(arrayEficienciaPrd);
+        //var eficienciaproducto = ((Number((unidadesObservacionProducto / unidadesGeneradasProducto)*100)-100)*-1);
+        var eficienciaproducto = (((unidadesGeneradas - unidadesObservacion) / unidadesGeneradas)*100).toFixed(2);
         await setoptionsPrd({
             exportEnabled: true,
             animationEnabled: true,
+            title:{
+				text: `Eficiencia del producto: ${eficienciaproducto}%`
+			},
             data: [{
                 type: "pie",
                 startAngle: 75,
@@ -312,6 +335,7 @@ const GestionEstadistica = () => {
                         <CanvasJSReact.CanvasJSChart options = {optionsPrd}
                         />
                     )}
+
                 </div>
             </main>
         </div>

@@ -37,6 +37,9 @@ const Dropzone = () => {
                     }
                     if(resultado){
                         mostrarAlerta('Los registros se cargaron correctamente', 'alerta-ok');
+                    }else{
+                        mostrarAlerta('Ocurrio un error', 'alerta-error')
+
                     }
                 }else{
                     mostrarAlerta('El archivo no es compatible', 'alerta-error')

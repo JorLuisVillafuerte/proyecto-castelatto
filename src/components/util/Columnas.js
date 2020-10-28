@@ -1,5 +1,5 @@
 export const columnasPedidos = [
-    { title: 'id', field: 'idpedido',},
+    { title: 'id', field: 'idpedido',editable: 'never'},
     {
       title: 'Codigo', field: 'codPedido',editable: 'never', validate: rowData => rowData.codPedido === '' ?
         { isValid: false, helperText: 'Codigo no puede estar vacio' } : true
@@ -41,6 +41,7 @@ export const columnasUsuarios = [
         { isValid: false, helperText: 'DNI no puede estar vacio' } : true
     },
     { title: 'Cargo', field: 'cargo', editable: 'never'},
+    { title: 'Galpon', field: 'galpon', editable: 'never'},
 ]
 export const columnasObservaciones = [
     { title: 'id', field: 'idobservacion', hidden: true },
@@ -48,6 +49,8 @@ export const columnasObservaciones = [
       title: 'Codigo', field: 'codObservacion', validate: rowData => rowData.codObservacion === '' ?
         { isValid: false, helperText: 'Codigo no puede estar vacio' } : true
     },*/
+    { title: 'Pedido', field: 'idpedido.codPedido', editable: 'never'},
+    { title: 'Producto', field: 'idproducto.codProducto', editable: 'never'},
     {
       title: 'Motivo', field: 'motivo', editable: 'never'
     },
@@ -55,6 +58,4 @@ export const columnasObservaciones = [
       title: 'Cantidad Piezas', field: 'cantidadPiezas', type: 'numeric', validate: rowData => rowData.cantidadPiezas <= 0 ?
       { isValid: false, helperText: 'El numero debe ser mayor a Cero' } : true
     },
-    { title: 'Pedido', field: 'idpedido.codPedido', editable: 'never'},
-    { title: 'Producto', field: 'idproducto.codProducto', editable: 'never'},
 ]
