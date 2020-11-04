@@ -11,7 +11,8 @@ import {
     OBTENER_PEDIDOS,
     ERROR_PEDIDOS,
     EDITAR_PEDIDO,
-    ELIMINAR_PEDIDO
+    ELIMINAR_PEDIDO,
+    AGREGAR_PEDIDO
 } from '../../types';
 import clienteAxios from '../../config/axios';
 
@@ -82,21 +83,25 @@ const PedidoState = props => {
                 });
                 return null;
             }else{*/
-                const pedidoRespuesta = await clienteAxios.post('pedidos/',pedido[0]);
-                console.log(pedido);
-                let pedidoDetalle = [];
-                for (let x = 0; x < pedido.length; x++) {
-                    const obj = {
-                        idpedido: pedidoRespuesta.data.idpedido,
-                        idproducto: Number(pedido[x].codProducto),
-                        cantidad: pedido[x].cantidad,
-                        unidades: pedido[x].unidades
-                    }
-                    pedidoDetalle.push(obj);
-                    
+            const pedidoRespuesta = await clienteAxios.post('pedidos/',pedido[0]);
+            let pedidoDetalle = [];
+            for (let x = 0; x < pedido.length; x++) {
+                const obj = {
+                    idpedido: pedidoRespuesta.data.idpedido,
+                    idproducto: Number(pedido[x].codProducto),
+                    cantidad: pedido[x].cantidad,
+                    unidades: pedido[x].unidades
                 }
-                await clienteAxios.post('pedidoDetalle/all',pedidoDetalle);
-                return true;
+                pedidoDetalle.push(obj);
+                
+            }
+            await clienteAxios.post('pedidoDetalle/all',pedidoDetalle);
+            console.log(pedidoRespuesta.data);
+            dispatch({
+                type: AGREGAR_PEDIDO,
+                payload: pedidoRespuesta.data
+            });
+            return true;
             
 
         } catch (error) {

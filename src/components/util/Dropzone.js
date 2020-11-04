@@ -14,32 +14,39 @@ const Dropzone = () => {
         if(acceptedFiles.length > 0){
             //mostrarAlerta('El archivo se subio correctamente', 'alerta-ok');
             acceptedFiles.forEach(async(file) => {
+
                 console.log(file)
                 if(file.name === 'pedidosCastelatto.csv'){
                     const text = await file.text();
                     const result = parse (text, {header:true});
                     let codigosPedidos = []
-                    result.data.forEach(ped => {
-                        const aux = ped.codPedido;
-                        codigosPedidos.push(aux);
-                    });
-                    let pedidosParaGenerar = [];
-                    codigosPedidos = codigosPedidos.filter((el, index) => codigosPedidos.indexOf(el) === index)
-                    console.log(codigosPedidos);
-                    for (let x = 0; x < codigosPedidos.length; x++) {
-                        const pedidoGenerar = result.data.filter(ped => ped.codPedido == codigosPedidos[x]);
-                        pedidosParaGenerar.push(pedidoGenerar);
-                    }
-                    console.log(pedidosParaGenerar);
-                    let resultado = false;
-                    for (let x = 0; x < pedidosParaGenerar.length; x++) {
-                        resultado = await agregarPedido(pedidosParaGenerar[x]);
-                    }
-                    if(resultado){
-                        mostrarAlerta('Los registros se cargaron correctamente', 'alerta-ok');
+                    if(result.data.length > 1){
+                        result.data.forEach(ped => {
+                            const aux = ped.codPedido;
+                            codigosPedidos.push(aux);
+                        });
+                        let pedidosParaGenerar = [];
+                        codigosPedidos = codigosPedidos.filter((el, index) => codigosPedidos.indexOf(el) === index)
+                        console.log(codigosPedidos);
+                        for (let x = 0; x < codigosPedidos.length; x++) {
+                            const pedidoGenerar = result.data.filter(ped => ped.codPedido == codigosPedidos[x]);
+                            
+                            pedidosParaGenerar.push(pedidoGenerar);
+                        }
+                        console.log(pedidosParaGenerar);
+                        let resultado = false;
+                        for (let x = 0; x < pedidosParaGenerar.length; x++) {
+                            resultado = await agregarPedido(pedidosParaGenerar[x]);
+                            
+                        }
+                        if(resultado){
+                            mostrarAlerta('Los registros se cargaron correctamente', 'alerta-ok');
+                        }else{
+                            mostrarAlerta('Ocurrio un error', 'alerta-error')
+    
+                        }
                     }else{
-                        mostrarAlerta('Ocurrio un error', 'alerta-error')
-
+                        mostrarAlerta('El archivo esta vacio', 'alerta-error')
                     }
                 }else{
                     mostrarAlerta('El archivo no es compatible', 'alerta-error')

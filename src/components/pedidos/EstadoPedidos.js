@@ -5,6 +5,8 @@ import TablaGestion from '../tablas/TablaGestion';
 import { columnasEstadoPedidos } from '../util/Columnas';
 import { Dialog, DialogContent} from '@material-ui/core';
 import AuthContext from '../../context/autenticacion/authContext';
+import ProductoContext from '../../context/productos/productoContext';
+import { Table } from 'reactstrap';
 //import {moment} from 'moment';
 /*const columns = [
     { id: 'codPedido', label: 'Codigo', minWidth: 100 },
@@ -22,6 +24,8 @@ const EstadoPedidos = () => {
     const { pedidos, editarPedido ,obtenerPedidos} = pedidoContext;
     const authContext = useContext(AuthContext); 
     const {usuario, usuarioAutenticado} = authContext;
+    const productoContext = useContext(ProductoContext); 
+    const {editarProducto} = productoContext;
     //OBJETOS DE ESTADO (USE STATE)
     const [openPopup, setOpenPopup] = useState(false);
     const [pedido, setPedido] = useState(null);
@@ -78,6 +82,12 @@ const EstadoPedidos = () => {
                     editarPedido(pedido);
                     mostrarAlerta('El pedido ha sido pasado a Terminado.'+formatearFecha(pedido.fechaTerminado), 'alerta-ok');
                     setOpenPopup(false);
+                    pedido.pedidoDetalleList.map((detalle) =>{
+                        var producto = detalle.idproducto;
+                        producto.cantidad = (detalle.idproducto.cantidad - detalle.cantidad);
+                        console.log(producto)
+                        editarProducto(producto);
+                    });
                 }else{
                     if(pedido.fechaProduccion == null){
                         mostrarAlerta('Este pedido aun no fue pasado a produccion', 'alerta-error');
@@ -94,6 +104,9 @@ const EstadoPedidos = () => {
             mostrarAlerta('Solo un operario puede realizar el cambio de estado', 'alerta-error');
         }
 
+    }
+    const mostrarDescripcion = () =>{
+        alert();
     }
     //INTERFAZ DEL COMPONENTE
     if(pedidos.length === 0){return null;}
@@ -133,22 +146,47 @@ const EstadoPedidos = () => {
             <Dialog fullWidth={'sm'} maxWidth={'sm'} open={openPopup} onClose={cerrarPopup} aria-labelledby="form-dialog-title">
                 <DialogContent>
                     <div>
-                        <button
-                            type="button"
-                            className="btn btn-primario btn-block btn-custom"
-                            name=""
-                            onClick={pasarProduccion}
-                        >
-                            Pasar a Produccion
-                        </button>
-                        <button
-                            type="button"
-                            className="btn btn-primario btn-block btn-custom"
-                            name=""
-                            onClick={pasarTerminado}
-                        >
-                            Pasar a Terminado
-                        </button>
+                        {pedido === null ? (null): (
+                            <Table>
+                                <thead>
+                                  <tr>
+                                    <th>#Id</th>
+                                    <th>Producto</th>
+                                    <th>Descripcion</th>
+                                    <th>Unidades</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {pedido.pedidoDetalleList.map((detalle) => {
+                                        console.log(detalle);
+                                        return(
+                                            <tr>
+                                                <th scope="row">{detalle.idpedidoDetalle}</th>
+                                                <td>{detalle.idproducto.codProducto}</td>
+                                                <td>{detalle.idproducto.descripcion}</td>
+                                                <td>{detalle.unidades}</td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </Table>
+                        )}
+                    <button
+                        type="button"
+                        className="btn btn-primario btn-block btn-custom"
+                        name=""
+                        onClick={pasarProduccion}
+                    >
+                        Pasar a Produccion
+                    </button>
+                    <button
+                        type="button"
+                        className="btn btn-primario btn-block btn-custom"
+                        name=""
+                        onClick={pasarTerminado}
+                    >
+                        Pasar a Terminado
+                    </button>
                     </div>
                 </DialogContent>
             </Dialog>

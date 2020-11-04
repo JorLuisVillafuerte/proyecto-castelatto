@@ -47,6 +47,7 @@ const UsuarioState = props => {
                 type: AGREGAR_USUARIO,
                 payload: respuesta.data
             });
+            return true;
         } catch (error) {
             console.log(error.response);
             const alerta = {
@@ -57,6 +58,7 @@ const UsuarioState = props => {
                 type: ERROR,
                 payload: alerta
             });
+            return false;
         }
 
     }

@@ -33,7 +33,7 @@ const AgregarUsuario = () => {
             [e.target.name]: e.target.value 
         }); 
     }    
-    const onSubmit = (e) => {
+    const onSubmit = async(e) => {
         e.preventDefault();
         //VALIDAR
         console.log(usuario);       
@@ -67,7 +67,10 @@ const AgregarUsuario = () => {
         }
 
         //ACTION 
-        agregarUsuario(usuario);
+        const respuesta = await agregarUsuario(usuario);
+        if(respuesta){
+            mostrarAlerta('El usuario se agrego correctamente', 'alerta-ok');
+        }
         setUsuario({
             nombre: '',
             apellido: '', 
@@ -78,9 +81,6 @@ const AgregarUsuario = () => {
             password: '', 
             confirmarPassword: '' 
         });
-        if(msg === null){
-            mostrarAlerta('El usuario se agrego correctamente', 'alerta-ok');
-        }
     }
 
     return ( 

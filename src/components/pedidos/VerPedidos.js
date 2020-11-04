@@ -1,9 +1,12 @@
-import React, { useContext, Fragment, useEffect } from 'react';
+import React, { useContext, Fragment, useEffect, useState } from 'react';
 import PedidoContext from '../../context/pedidos/pedidoContext'
 import AlertaContext from '../../context/alertas/alertaContext'
 import TablaGestion from '../tablas/TablaGestion';
 import {columnasPedidos} from '../util/Columnas';
 import AuthContext from '../../context/autenticacion/authContext';
+import { Dialog, DialogContent} from '@material-ui/core';
+import { Table } from 'reactstrap';
+
 const VerPedidos = () => {
 
     const pedidoContext = useContext(PedidoContext); 
@@ -45,6 +48,15 @@ const VerPedidos = () => {
             reject();
         }
     }
+    const [openPopup, setOpenPopup] = useState(false);
+    const [pedido, setPedido] = useState(null);
+    const cerrarPopup = () => {setOpenPopup(false);};
+    const mostrarDescripcion = (event,rowData) =>{
+        setPedido(rowData);
+        console.log(rowData);
+        setOpenPopup(true);
+
+    }
     if(pedidos.length === 0){return null;}
     return ( 
         <Fragment>
@@ -56,8 +68,40 @@ const VerPedidos = () => {
                         data={pedidos}
                         handleRowUpdate={actualizarFila}
                         handleRowDelete={eliminarFila}
+                        type={'verpedidos'}
+                        handleDetails={mostrarDescripcion}
                         />
-                </div>        
+                </div>
+                <Dialog fullWidth={'sm'} maxWidth={'sm'} open={openPopup} onClose={cerrarPopup} aria-labelledby="form-dialog-title">
+                    <DialogContent>
+                        <div>
+                            {pedido === null ? (null): (
+                                <Table>
+                                <thead>
+                                  <tr>
+                                    <th>#Id</th>
+                                    <th>Producto</th>
+                                    <th>Descripcion</th>
+                                    <th>Unidades</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {pedido.pedidoDetalleList.map((detalle) => {
+                                        return(
+                                            <tr>
+                                                <th scope="row">{detalle.idpedidoDetalle}</th>
+                                                <td>{detalle.idproducto.codProducto}</td>
+                                                <td>{detalle.idproducto.descripcion}</td>
+                                                <td>{detalle.unidades}</td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                              </Table>
+                            )}
+                        </div>
+                    </DialogContent>
+                </Dialog>        
         </Fragment>
      );
 }

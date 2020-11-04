@@ -12,20 +12,23 @@ import PedidoState from './context/pedidos/pedidoState';
 import ObservacionState from './context/observaciones/observacionState';
 import UsuarioState from './context/usuarios/usuarioState';
 import PrivateRoute from './config/PrivateRoute';
+import ProductoState from './context/productos/productoState';
 ReactDOM.render(
   <React.StrictMode>
     <PedidoState>
       <ObservacionState>
         <AuthState>
           <UsuarioState>
-            <AlertaState>          
-                <HashRouter>
-                  <Switch>
-                      <Route exact path="/" component={Login} />
-                      <PrivateRoute path="/dashboard" component={Dashboard} />
-                  </Switch>
-                </HashRouter>
-            </AlertaState>
+            <ProductoState>
+              <AlertaState>          
+                  <HashRouter>
+                    <Switch>
+                        <Route exact path="/" component={Login} />
+                        <PrivateRoute path="/dashboard" component={Dashboard} />
+                    </Switch>
+                  </HashRouter>
+              </AlertaState>
+            </ProductoState>
           </UsuarioState>
         </AuthState>
       </ObservacionState>

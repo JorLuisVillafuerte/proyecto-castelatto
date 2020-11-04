@@ -21,6 +21,7 @@ export const columnasEstadoPedidos = [
         { isValid: false, helperText: 'Codigo no puede estar vacio' } : true
     },
     { title: 'Descripcion', field: 'descripcion', },
+    { title: 'cliente', field: 'cliente', editable: 'never'},
     { title: 'Fecha Emision', field: 'fechaEmision', type: 'date', editable: 'never' },
     { title: 'Fecha Produccion', field: 'fechaProduccion', type: 'date', editable: 'never' },
     { title: 'Fecha Terminado', field: 'fechaTerminado', type: 'date', editable: 'never' },
@@ -58,4 +59,14 @@ export const columnasObservaciones = [
       title: 'Cantidad Piezas', field: 'cantidadPiezas', type: 'numeric', validate: rowData => rowData.cantidadPiezas <= 0 ?
       { isValid: false, helperText: 'El numero debe ser mayor a Cero' } : true
     },
+]
+export const columnasProductos = [
+    { title: 'id', field: 'idproducto', hidden: true },
+    { title: 'Producto', field: 'codProducto', editable: 'never'},
+    {
+      title: 'Descripcion', field: 'descripcion', editable: 'never'
+    },
+    {
+      title: 'cantidad', field: 'cantidad', type: 'numeric'
+    }
 ]

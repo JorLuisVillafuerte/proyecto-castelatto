@@ -1,4 +1,4 @@
-import {MOSTRAR_SELECCIONADO, BUSCAR_PEDIDO, RESET_BUSCAR, OBTENER_PEDIDOS, ERROR_PEDIDOS,EDITAR_PEDIDO,ELIMINAR_PEDIDO} from "../../types";
+import {MOSTRAR_SELECCIONADO, BUSCAR_PEDIDO, RESET_BUSCAR, OBTENER_PEDIDOS, ERROR_PEDIDOS,EDITAR_PEDIDO,ELIMINAR_PEDIDO, AGREGAR_PEDIDO} from "../../types";
 
 export default (state, action) => {
     switch (action.type) {
@@ -6,6 +6,12 @@ export default (state, action) => {
             return {
                 ...state,
                 pedidos: action.payload,
+                msg: null
+            }
+        case AGREGAR_PEDIDO: 
+            return {
+                ...state,
+                pedidos: [...state.pedidos, action.payload],
                 msg: null
             }
         case EDITAR_PEDIDO: 
